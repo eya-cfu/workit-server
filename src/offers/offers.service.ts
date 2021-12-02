@@ -12,7 +12,7 @@ export class OffersService {
     private offerRepo: Repository<Offer>,
   ) {}
 
-  async create(data: CreateOfferDto): Promise<any> {
+  async create(data: CreateOfferDto): Promise<number> {
     const offer = {
       title: data.title,
 
@@ -45,7 +45,7 @@ export class OffersService {
       employer: data.employerId,
     };
     const o = this.offerRepo.create(offer);
-    return await this.offerRepo.save(o);
+    return (await this.offerRepo.save(o)).offerId;
   }
 
   async findAll(): Promise<Offer[]> {

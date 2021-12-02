@@ -19,7 +19,10 @@ export class OffersController {
 
   @Post()
   async create(@Body() createOfferDto: CreateOfferDto) {
-    return this.offersService.create(createOfferDto);
+    const resp = {
+      id: await this.offersService.create(createOfferDto),
+    };
+    return resp;
   }
 
   @Get()

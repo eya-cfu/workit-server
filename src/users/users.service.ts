@@ -22,7 +22,7 @@ export class UsersService {
   bcrypt = require('bcrypt');
   saltRounds = 8;
 
-  async createUser(data: UserDto) {
+  async createUser(data: UserDto): Promise<number> {
     const { email } = data;
     let user = await this.userRepo.findOne({ where: { email } });
     if (user) {
@@ -31,7 +31,7 @@ export class UsersService {
     user = this.userRepo.create(data);
     user.salt = await this.bcrypt.genSalt(this.saltRounds); //encrypted password
     user.password = await this.bcrypt.hash(user.password, user.salt);
-    await this.userRepo.save(user);
+    return (await this.userRepo.save(user)).id;
   }
 
   async getAllUsers(): Promise<User[]> {

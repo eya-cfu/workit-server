@@ -14,8 +14,8 @@ export class CompaniesService {
     private offerRepo: Repository<Offer>,
   ) {}
 
-  async create(data: CreateCompanyDto) {
-    await this.companyRepo.save(data);
+  async create(data: CreateCompanyDto): Promise<number> {
+    return (await this.companyRepo.save(data)).id;
   }
 
   async findAll(): Promise<Company[]> {

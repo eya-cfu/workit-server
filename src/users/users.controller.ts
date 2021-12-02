@@ -6,12 +6,10 @@ import {
   Put,
   Param,
   Delete,
-  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/user.dto';
 import { UserLoginDto } from './dto/user-login.dto';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
@@ -19,7 +17,10 @@ export class UsersController {
 
   @Post()
   async create(@Body() data: UserDto) {
-    return this.usersService.createUser(data);
+    const resp = {
+      id: await this.usersService.createUser(data),
+    };
+    return resp;
   }
 
   @Get()

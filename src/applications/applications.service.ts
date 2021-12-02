@@ -11,8 +11,8 @@ export class ApplicationsService {
     private appRepo: Repository<Application>,
   ) {}
 
-  async create(data: CreateApplicationDto): Promise<any> {
-    return await this.appRepo.save(data);
+  async create(data: CreateApplicationDto): Promise<number> {
+    return (await this.appRepo.save(data)).appID;
   }
 
   async findAll(): Promise<Application[]> {

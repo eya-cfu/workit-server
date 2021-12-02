@@ -24,7 +24,10 @@ export class CompaniesController {
 
   @Post()
   async create(@Body() data: CreateCompanyDto) {
-    return this.companiesService.create(data);
+    const resp = {
+      id: await this.companiesService.create(data),
+    };
+    return resp;
   }
 
   @Get()
